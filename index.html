@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             background-color: #F5F5F5;
-            overflow: hidden;
+            overflow: hidden; /* Hide scrollbars */
         }
         
         #planet {
@@ -24,7 +24,6 @@
             cursor: pointer;
             z-index: 2;
             box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-            touch-action: none;
         }
         
         #planet::before {
@@ -51,6 +50,14 @@
         #button img {
             width: 40px;
             height: 40px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            #planet {
+                width: 300px;
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -89,7 +96,7 @@
             }
         });
 
-       
+        // Touch events for mobile
         planet.addEventListener("touchstart", function (event) {
             event.preventDefault(); // Prevent default touch actions
             isMouseDown = true;
