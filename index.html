@@ -11,6 +11,7 @@
             align-items: center;
             height: 100vh;
             background-color: #F5F5F5;
+            overflow: hidden;
         }
         
         #planet {
@@ -23,6 +24,7 @@
             cursor: pointer;
             z-index: 2;
             box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+            touch-action: none;
         }
         
         #planet::before {
@@ -83,6 +85,30 @@
             if (isMouseDown) {
                 var rotateX = startRotateX + (event.clientY - startMouseY);
                 var rotateY = startRotateY + (event.clientX - startMouseX);
+                planet.style.transform = "rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+            }
+        });
+
+       
+        planet.addEventListener("touchstart", function (event) {
+            event.preventDefault(); // Prevent default touch actions
+            isMouseDown = true;
+            var touch = event.touches[0];
+            startMouseX = touch.clientX;
+            startMouseY = touch.clientY;
+            startRotateX = planet.style.transform ? parseInt(planet.style.transform.split("rotateX(")[1]) : 0;
+            startRotateY = planet.style.transform ? parseInt(planet.style.transform.split("rotateY(")[1]) : 0;
+        });
+
+        planet.addEventListener("touchend", function () {
+            isMouseDown = false;
+        });
+
+        planet.addEventListener("touchmove", function (event) {
+            if (isMouseDown) {
+                var touch = event.touches[0];
+                var rotateX = startRotateX + (touch.clientY - startMouseY);
+                var rotateY = startRotateY + (touch.clientX - startMouseX);
                 planet.style.transform = "rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
             }
         });
