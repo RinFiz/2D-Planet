@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2D Planet</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F5F5F5;
+        }
+        
+        #planet {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #4CAF50, #2196F3, #B0BEC5);
+            border-radius: 50%;
+            border: 2px solid black;
+            position: relative;
+            cursor: pointer;
+            z-index: 2;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #planet::before {
+            content: "2D Planet";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: black;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        #button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 3;
+            cursor: pointer;
+        }
+        
+        #button img {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="planet"></div>
+    
+    <a href="https://rinfiz-site.vercel.app/" id="button" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/121906192?v=4" alt="Button Image">
+    </a>
+
+    <script>
+        var planet = document.getElementById("planet");
+        var isMouseDown = false;
+        var startMouseX = 0;
+        var startMouseY = 0;
+        var startRotateX = 0;
+        var startRotateY = 0;
+
+        planet.addEventListener("mousedown", function (event) {
+            isMouseDown = true;
+            startMouseX = event.clientX;
+            startMouseY = event.clientY;
+            startRotateX = planet.style.transform ? parseInt(planet.style.transform.split("rotateX(")[1]) : 0;
+            startRotateY = planet.style.transform ? parseInt(planet.style.transform.split("rotateY(")[1]) : 0;
+        });
+
+        planet.addEventListener("mouseup", function () {
+            isMouseDown = false;
+        });
+
+        planet.addEventListener("mousemove", function (event) {
+            if (isMouseDown) {
+                var rotateX = startRotateX + (event.clientY - startMouseY);
+                var rotateY = startRotateY + (event.clientX - startMouseX);
+                planet.style.transform = "rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+            }
+        });
+    </script>
+</body>
+</html>
