@@ -6,7 +6,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #F5F5F5;
-    overflow: hidden; /* Hide scrollbars */
+    overflow: hidden;
 }
 
 #planet {
