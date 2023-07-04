@@ -27,7 +27,7 @@ planet.addEventListener("mousemove", function (event) {
 
 // Touch events for mobile
 planet.addEventListener("touchstart", function (event) {
-    event.preventDefault(); // Prevent default touch actions
+    event.preventDefault();
     isMouseDown = true;
     var touch = event.touches[0];
     startMouseX = touch.clientX;
